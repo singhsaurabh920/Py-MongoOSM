@@ -88,8 +88,6 @@ class OsmHandler(object):
                 elif name == 'tag':
                     k = attrs['k']
                     v = attrs['v']
-                    # MongoDB doesn't let us have dots in the key names.
-                    #k = k.replace('.', ',,')
                     record['tg'].append((k, v))
                     record['ky'].append(k)
                 elif name == 'way':
