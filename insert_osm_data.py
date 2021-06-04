@@ -17,15 +17,12 @@ class OsmHandler(object):
         self.client = client
 
         self.client.osm.nodes.ensure_index([('loc', pymongo.GEO2D)])
-        self.client.osm.nodes.ensure_index([('id', pymongo.ASCENDING),
-                                            ('version', pymongo.DESCENDING)])
+        self.client.osm.nodes.ensure_index([('id', pymongo.ASCENDING),('version', pymongo.DESCENDING)])
 
         self.client.osm.ways.ensure_index([('loc', pymongo.GEO2D)])
-        self.client.osm.ways.ensure_index([('id', pymongo.ASCENDING),
-                                           ('version', pymongo.DESCENDING)])
+        self.client.osm.ways.ensure_index([('id', pymongo.ASCENDING),('version', pymongo.DESCENDING)])
 
-        self.client.osm.relations.ensure_index([('id', pymongo.ASCENDING),
-                                                ('version', pymongo.DESCENDING)])
+        self.client.osm.relations.ensure_index([('id', pymongo.ASCENDING),('version', pymongo.DESCENDING)])
         self.stat_nodes = 0
         self.stat_ways = 0
         self.stat_relations = 0
@@ -35,9 +32,7 @@ class OsmHandler(object):
     def writeStatsToScreen(self):
         for char in self.lastStatString:
             sys.stdout.write('\b')
-        self.lastStatString = "%dk nodes, %dk ways, %d relations" % (self.stat_nodes / 1000,
-                                                                     self.stat_ways / 1000,
-                                                                     self.stat_relations)
+        self.lastStatString = "%dk nodes, %dk ways, %d relations" % (self.stat_nodes / 1000,self.stat_ways / 1000,self.stat_relations)
         sys.stdout.write(self.lastStatString)
 
     def fillDefault(self, attrs):
@@ -82,12 +77,11 @@ class OsmHandler(object):
                 """Parse the XML element at the start"""
                 if name == 'node':
                     record = self.fillDefault(attrs)
-                    loc = [float(attrs['lat']),
-                           float(attrs['lon'])]
+                    loc = [float(attrs['lat']),float(attrs['lon'])]
                     record['loc'] = loc
                 elif name == 'tag':
-                    k = attrs['k']
-                    v = attrs['v']
+                    k = attrs['k'];
+                    v = attrs['v'];
                     record['tg'].append((k, v))
                     record['ky'].append(k)
                 elif name == 'way':
