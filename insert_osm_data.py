@@ -194,4 +194,4 @@ if __name__ == "__main__":
     #parser.setContentHandler(handler)
     #parser.parse(open(filename))
     handler.parse(open(filename))
-    client.disconnect()
+    client.close()
